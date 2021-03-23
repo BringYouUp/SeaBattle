@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Tasks</title>
+</head>
+<body>
+	<style>
+		*{
+			margin: 0;
+			cursor: pointer;
+		}
+		
+		body {
+			background-color: #1B1B1B;
+			font-family: 'Montserrat', sans-serif;
+			box-sizing: border-box;
+			overflow: hidden;
+
+		}
+		
+		.main {
+			align-items: center;
+			display: flex;
+			height: 100vh;
+			width: 100vw;
+			justify-content: center;
+		}
+		
+		.mainArea {
+			width: 75%;
+			height: 100%;
+			position: relative;
+		}
+
+		.innerMainArea {
+			position: absolute;
+			border-radius: 8px;
+			border: 1px solid #1BD83E;
+			background-color: #1B4B24;
+			mix-blend-mode: overlay;
+			box-shadow: 0 0 8px #1BD83E;
+			transition: 0.5;
+			animation-name: innerEase;
+			animation-duration: 0.75s;
+		}
+		@keyframes innerEase {
+			0% {
+				opacity: 0;
+				transform: scale(0.5)
+			}
+			100% {
+				opacity: 1;
+				transform: scale(1)
+			}
+		}
+		.mainMenu {
+			width: 25%;
+			display: flex;
+			flex-direction: column;
+			line-height: 1.5;
+		}
+		
+		.menuLinks {
+			transition: 0.25s;
+			cursor: pointer;
+			border: 2px solid #0D8823;
+			border-radius: 20px;
+			color: #0D8823;
+			text-transform: uppercase;
+			font-size: calc(0.75vw + 0.7em);
+			margin: 5px 0;
+			margin-right: -25%;
+			padding-left: 5%;
+		}
+		
+		.messageHitMiss {
+			text-align: center;
+			z-index: 3;
+			transition: 0.5s;
+			position: absolute;
+			width: 100vw;
+			height: 100vh;
+			left: +100vw;
+			color: #0D8823;
+			text-transform: uppercase;
+			font-size: 1.1em;
+			font-weight: 800;
+			animation-name: moveInOut;
+			animation-duration: 2.5s;
+			animation-timing-function: cubic-bezier(0,.83,1,.16);
+		}
+		@keyframes moveInOut {
+				0% {
+					left: +100vw;
+				}
+				100% {
+					left: -100vw;
+				}
+		}	
+		.areaFor {
+			z-index: 2;
+			box-shadow: 0 0 10px #1BD83E;
+		  height: 10vh;
+			width: 100vw;
+			position: absolute;
+			transition: 0.3s;
+			background-color: #1B1B1B;
+			animation-name: moveInOutOpacity;
+			animation-duration: 2.5s;
+			animation-timing-function: cubic-bezier(0,.83,1,.16);
+			animation-fill-mode: forwards;
+		}
+		@keyframes moveInOutOpacity {
+			0% {
+				opacity: 0
+			}
+			3% {
+				opacity: 1
+			}
+			97% {
+				opacity: 1
+			}
+			100% {
+				opacity: 0
+			}
+		}	
+				
+		.menuLinks:hover {
+			color: #11B02F;
+			text-shadow: 0 0 10px #11B02F;
+			box-shadow: 0 0 5px #11B02F;
+			transform: translateX(-1.5vw);
+			font-weight: 450;
+		}
+		.menuLinksAfter {
+			animation-name: menuMoveOut;
+			animation-duration: .75s;
+			animation-timing-function: cubic-bezier(.72,-0.45,1,.76);
+			animation-fill-mode: forwards;	
+		}		
+		@keyframes menuMoveOut {
+			0% {
+				transform: translateX(-1.5vw)
+			}
+			100% {
+				transform: translateX(25vw)
+			}
+		}
+
+		.menuLinkAfterTarget {
+			animation-name: menuMoveOuTarget;
+			animation-duration: .75s;
+			animation-timing-function: cubic-bezier(.72,-0.45,1,.76);
+			animation-fill-mode: forwards;	
+		}
+		@keyframes menuMoveOuTarget {
+			0% {
+				transform: translateX(0vw)
+			}
+			100% {
+				transform: translateX(25vw)
+			}
+		}
+
+		.continueGameDate {
+			font-size: calc(0.4vw + 0.4em);
+		}
+
+		.mainGame {
+			display: none
+		}
+
+		
+		#gameTable {
+			display: flex;
+			justify-content: center;
+			width: 75vw;	
+			height: 100vh;
+			align-items: center;
+		}
+		
+		#gameMenu {
+			width: 25vw;
+			display: flex;
+			flex-direction: column;
+			line-height: 1.5;
+		}
+		
+		.mainGameOpacity {
+			animation-name: mainGameOpacity;
+			animation-duration: 0.75s;
+			animation-timing-function: ease;
+			animation-fill-mode: forwards;			
+		}
+		@keyframes mainGameOpacity {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		.mainGameOpacityReverse {
+			animation-name: mainGameOpacityReverse;
+			animation-duration: 0.25s;
+			animation-timing-function: ease;
+			animation-fill-mode: forwards;			
+		}
+		@keyframes mainGameOpacityReverse {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+
+		table {
+			border-spacing: 7.5px;
+
+		}
+		th {
+			border: 1px solid green;
+			border-radius: 8px;
+			transition: 0.15s;
+			box-shadow: 0 0 3px #0A671B;
+			<!-- height: 50px; -->
+			<!-- width: 50px; -->
+		}
+		th:hover {
+			border: 1px solid #1BD83E;
+			box-shadow: 0 0 8px #1BD83E;
+		}
+		
+		.shipHit {
+			background-color: #0D8823;
+		}
+		.shipDestroy {
+			background-color: #11B02F;
+			box-shadow: 0 0 4px #11B02F;
+		}
+		.shipMiss {
+			background-color: #1B4B24;
+			border: 1px solid #1B4B24;
+		}
+		.hereIsShip {
+/*			background-color: blue;
+*/		}
+		
+		
+		[data-tooltip]::after {
+			font-size: calc(0.75vw + 0.5em);
+			color: #1BD83E;
+			content: attr(data-tooltip);
+			opacity: 0;
+			transition: 0.15s;
+			<!-- position: absolute; -->
+			<!-- right: 2%; -->
+			<!-- top: 2%; -->
+			<!-- border: 1px solid #1BD83E; -->
+			<!-- box-shadow: 0 0 15px #1BD83E; -->
+			<!-- padding: 10px; -->
+			<!-- width: 5vw; -->
+			<!-- text-align: center; -->
+			<!-- border-radius: 8px;	 -->
+		}
+		[data-tooltip]:hover::after {
+			opacity: 1;
+		}
+		
+	</style>
+   <script src="2020_12_27_SeaBattle_16.js"></script>
+</body>
+
+</html>
